@@ -35,3 +35,26 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
+
+sourceSets {
+	create("integration") {
+		withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {
+			kotlin.srcDir("src/integration/kotlin")
+			resources.srcDir("src/integration/resources")
+			compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
+			runtimeClasspath += output + compileClasspath + sourceSets["test"].runtimeClasspath
+		}
+	}
+}
+
+val integration = task<Test>("integration") {
+	description = "Runs the integration tests"
+	group = "verification"
+	testClassesDirs = sourceSets["integration"].output.classesDirs
+	classpath = sourceSets["integration"].runtimeClasspath
+	mustRunAfter(tasks["test"])
+}
+
+tasks.check {
+	dependsOn(integration)
+}
