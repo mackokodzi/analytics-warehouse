@@ -1,4 +1,4 @@
-package com.mackokodzi.analyticswarehouse.external.campaign
+package com.mackokodzi.analyticswarehouse.external.campaign.db
 
 import com.mackokodzi.analyticswarehouse.domain.campaign.CampaignStatistics
 import com.mackokodzi.analyticswarehouse.domain.campaign.CampaignStatisticsCriteria
@@ -50,8 +50,8 @@ class JooqCampaignStatisticsRepository(
             selectFields.add(
                 cast(
                     sum(CAMPAIGN_STATISTICS.CLICKS),
-                    SQLDataType.DOUBLE
-                ).divide(cast(sum(CAMPAIGN_STATISTICS.IMPRESSIONS), SQLDataType.DOUBLE)).`as`("ctr")
+                    SQLDataType.NUMERIC
+                ).divide(cast(sum(CAMPAIGN_STATISTICS.IMPRESSIONS), SQLDataType.NUMERIC)).`as`("ctr")
             )
         }
 

@@ -26,7 +26,7 @@ class CampaignStatisticsInitFeeder(
             .also { logger.info { "Saved entries successfully" } }
     }
 
-    fun CampaignStatisticsCsvReportRow.toDomain() =
+    private fun CampaignStatisticsCsvReportRow.toDomain() =
         CampaignStatistics(
             datasource = Datasource(datasource),
             campaignName = CampaignName(campaignName),
