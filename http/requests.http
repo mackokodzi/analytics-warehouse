@@ -1,0 +1,55 @@
+### Total Clicks for a given Datasource for a given Date range
+GET {{host}}/campaign-statistics
+   ?metrics=clicks
+   &groups=datasource
+   &datasources=Google Ads
+   &dateFrom=2019-11-12
+   &dateTo=2019-11-20
+
+### Total Clicks
+GET {{host}}/campaign-statistics
+   ?metrics=clicks
+
+### Total Clicks for a given Datasource
+GET {{host}}/campaign-statistics
+   ?metrics=clicks
+   &datasources=Google Ads
+
+### Total Clicks per Datasource
+GET {{host}}/campaign-statistics
+   ?metrics=clicks
+   &groups=datasource
+
+### Total Clicks per Datasource and a given Date range
+GET {{host}}/campaign-statistics
+   ?metrics=clicks
+   &groups=datasource
+   &dateFrom=2019-11-12
+   &dateTo=2019-11-20
+
+### Click-Through Rate (CTR) per Datasource and Campaign sorted by CTR in descending order
+GET {{host}}/campaign-statistics
+   ?metrics=ctr
+   &groups=datasource,campaign
+   &sorts=ctr.desc
+
+### Click-Through Rate (CTR) per Datasource and Campaign sorted by Datasource (ASC) and CTR (DESC)
+GET {{host}}/campaign-statistics
+   ?metrics=ctr
+   &groups=datasource,campaign
+   &sorts=datasource,ctr.desc
+
+### Impressions over time (daily) sorted by Date (DESC)
+GET {{host}}/campaign-statistics
+   ?metrics=impressions
+   &groups=date
+   &sorts=date.desc
+
+### Total Impressions per Datasource
+GET {{host}}/campaign-statistics
+   ?metrics=impressions
+   &groups=datasource
+
+###
+
+
