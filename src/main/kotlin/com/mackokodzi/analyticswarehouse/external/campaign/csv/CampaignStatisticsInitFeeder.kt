@@ -10,11 +10,10 @@ import com.mackokodzi.analyticswarehouse.domain.campaign.OperationDate
 import mu.KLogging
 import org.springframework.context.annotation.Profile
 import org.springframework.dao.DuplicateKeyException
-import org.springframework.stereotype.Component
 import javax.annotation.PostConstruct
 
 @Profile("!integration")
-@Component
+//@Component
 class CampaignStatisticsInitFeeder(
     private val campaignStatisticsRepository: CampaignStatisticsRepository,
     private val campaignStatisticsDataExtractor: CampaignStatisticsDataExtractor
