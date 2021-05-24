@@ -8,9 +8,13 @@ import com.mackokodzi.analyticswarehouse.domain.campaign.Datasource
 import com.mackokodzi.analyticswarehouse.domain.campaign.Impressions
 import com.mackokodzi.analyticswarehouse.domain.campaign.OperationDate
 import mu.KLogging
+import org.springframework.context.annotation.Profile
+import org.springframework.dao.DuplicateKeyException
+import org.springframework.stereotype.Component
 import javax.annotation.PostConstruct
 
-//@Component
+@Profile("!integration")
+@Component
 class CampaignStatisticsInitFeeder(
     private val campaignStatisticsRepository: CampaignStatisticsRepository,
     private val campaignStatisticsDataExtractor: CampaignStatisticsDataExtractor
@@ -18,12 +22,16 @@ class CampaignStatisticsInitFeeder(
 
     @PostConstruct
     fun feedDataFromCsv() {
-        campaignStatisticsDataExtractor.extractCsvData()
-            .let { it.map { row -> row.toDomain() } }
-            .dropLast(15000) //TODO: postgre constraints on heroku server
-            .also { logger.info { "Saving ${it.size} entries"} }
-            .let { campaignStatisticsRepository.saveAll(it) }
-            .also { logger.info { "Saved entries successfully" } }
+        try {
+            campaignStatisticsDataExtractor.extractCsvData()
+                .let { it.map { row -> row.toDomain() } }
+                .subList(0, 8000) //TODO: postgre constraints on heroku server
+                .also { logger.info { "Saving ${it.size} entries"} }
+                .let { campaignStatisticsRepository.saveAll(it) }
+                .also { logger.info { "Saved entries successfully" } }
+        } catch (e: DuplicateKeyException) {
+            logger.info { "Entries already stored" }
+        }
     }
 
     private fun CampaignStatisticsCsvReportRow.toDomain() =

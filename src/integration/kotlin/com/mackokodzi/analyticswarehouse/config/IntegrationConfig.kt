@@ -1,4 +1,4 @@
-package com.mackokodzi.analyticswarehouse
+package com.mackokodzi.analyticswarehouse.config
 
 import com.mackokodzi.analyticswarehouse.postgresql.EmbeddedPostgreSQL
 import org.springframework.context.annotation.Bean
