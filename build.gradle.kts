@@ -1,5 +1,6 @@
 import nu.studer.gradle.jooq.JooqEdition
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jooq.meta.jaxb.ForcedType
 
 plugins {
 	id("org.springframework.boot") version "2.4.5"
@@ -32,13 +33,13 @@ dependencies {
 	implementation("io.github.microutils:kotlin-logging:1.6.22")
 	implementation("com.opencsv:opencsv:5.2")
 	implementation("org.postgresql:postgresql:42.2.14")
+	implementation("ru.yandex.qatools.embed:postgresql-embedded:2.10")
 	jooqGenerator("org.postgresql:postgresql:42.2.14")
-	testImplementation("ru.yandex.qatools.embed:postgresql-embedded:2.6")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-}
-
-allOpen {
-	annotation("javax.persistence.Entity")
+	testImplementation("io.rest-assured:rest-assured:4.2.0")
+	testImplementation("io.rest-assured:xml-path:4.2.0")
+	testImplementation("io.rest-assured:json-path:4.2.0")
+	testImplementation("io.rest-assured:kotlin-extensions:4.2.0")
 }
 
 tasks.withType<KotlinCompile> {
@@ -94,6 +95,13 @@ jooq {
 					database.apply {
 						name = "org.jooq.meta.postgres.PostgresDatabase"
 						inputSchema = "public"
+						forcedTypes.addAll(arrayOf(
+							ForcedType()
+								.withUserType("java.time.Instant")
+								.withConverter("com.mackokodzi.analyticswarehouse.config.jooq.InstantConverter")
+								.withIncludeExpression("DATE")
+								.withIncludeTypes(".*")
+						).toList())
 					}
 					generate.apply {
 						isDeprecated = false

@@ -1,7 +1,7 @@
 package com.mackokodzi.analyticswarehouse.api.campaign
 
 import com.mackokodzi.analyticswarehouse.BaseIntegrationTests
-import com.mackokodzi.analyticswarehouse.external.campaign.db.JooqCampaignStatisticsRepository
+import com.mackokodzi.analyticswarehouse.external.db.campaign.JooqCampaignStatisticsRepository
 import com.mackokodzi.analyticswarehouse.mothers.domain.CampaignStatisticsMother
 import io.restassured.RestAssured.given
 import org.hamcrest.Matchers.equalTo
@@ -182,11 +182,11 @@ class CampaignStatisticsEndpointTest(
 
         // then
         response.then().statusCode(HttpStatus.OK.value())
-            .body("[0].date", equalTo("2020-01-02"))
+            .body("[0].date", equalTo("2020-01-02T00:00:00Z"))
             .body("[0].impressions", equalTo(200))
-            .body("[1].date", equalTo("2020-01-03"))
+            .body("[1].date", equalTo("2020-01-03T00:00:00Z"))
             .body("[1].impressions", equalTo(180))
-            .body("[2].date", equalTo("2020-01-04"))
+            .body("[2].date", equalTo("2020-01-04T00:00:00Z"))
             .body("[2].impressions", equalTo(90))
     }
 }

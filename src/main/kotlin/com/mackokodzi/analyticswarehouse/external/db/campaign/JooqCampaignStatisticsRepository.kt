@@ -1,4 +1,4 @@
-package com.mackokodzi.analyticswarehouse.external.campaign.db
+package com.mackokodzi.analyticswarehouse.external.db.campaign
 
 import com.mackokodzi.analyticswarehouse.domain.campaign.CampaignStatistics
 import com.mackokodzi.analyticswarehouse.domain.campaign.CampaignStatisticsCriteria
@@ -56,10 +56,10 @@ class JooqCampaignStatisticsRepository(
         }
 
         if (criteria.dateFrom != null) {
-            whereConditions.add(CAMPAIGN_STATISTICS.DATE.greaterOrEqual(java.sql.Date(criteria.dateFrom.time)))
+            whereConditions.add(CAMPAIGN_STATISTICS.DATE.greaterOrEqual(criteria.dateFrom.toInstant()))
         }
         if (criteria.dateTo != null) {
-            whereConditions.add(CAMPAIGN_STATISTICS.DATE.lessOrEqual(java.sql.Date(criteria.dateTo.time)))
+            whereConditions.add(CAMPAIGN_STATISTICS.DATE.lessOrEqual(criteria.dateTo.toInstant()))
         }
         if (!criteria.datasources.isNullOrEmpty()) {
             criteria.datasources.forEach {
@@ -103,7 +103,7 @@ class JooqCampaignStatisticsRepository(
             dsl.newRecord(CAMPAIGN_STATISTICS).apply {
                 this.datasource = campStats.datasource.value
                 this.campaignName = campStats.campaignName.value
-                this.date = java.sql.Date(campStats.operationDate.value.toEpochMilli())
+                this.date = campStats.operationDate.value
                 this.clicks = campStats.clicks.value
                 this.impressions = campStats.impressions.value
             }

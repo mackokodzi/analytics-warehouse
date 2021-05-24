@@ -3,13 +3,16 @@
  */
 package com.mackokodzi.analyticswarehouse.tables;
 
+import com.mackokodzi.analyticswarehouse.Indexes;
 import com.mackokodzi.analyticswarehouse.Keys;
 import com.mackokodzi.analyticswarehouse.Public;
+import com.mackokodzi.analyticswarehouse.config.jooq.InstantConverter;
 import com.mackokodzi.analyticswarehouse.tables.records.CampaignStatisticsRecord;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Identity;
+import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Row6;
@@ -22,7 +25,7 @@ import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
-import java.sql.Date;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 
@@ -75,7 +78,7 @@ public class CampaignStatistics extends TableImpl<CampaignStatisticsRecord> {
     /**
      * The column <code>public.campaign_statistics.date</code>.
      */
-    public final TableField<CampaignStatisticsRecord, Date> DATE = createField(DSL.name("date"), SQLDataType.DATE.nullable(false), this, "");
+    public final TableField<CampaignStatisticsRecord, Instant> DATE = createField(DSL.name("date"), SQLDataType.TIMESTAMP(6).nullable(false), this, "", new InstantConverter());
 
     /**
      * The column <code>public.campaign_statistics.clicks</code>.
@@ -126,6 +129,11 @@ public class CampaignStatistics extends TableImpl<CampaignStatisticsRecord> {
     }
 
     @Override
+    public List<Index> getIndexes() {
+        return Arrays.<Index>asList(Indexes.IDX_UNIQUE_CAMPAIGN);
+    }
+
+    @Override
     public Identity<CampaignStatisticsRecord, Integer> getIdentity() {
         return (Identity<CampaignStatisticsRecord, Integer>) super.getIdentity();
     }
@@ -171,7 +179,7 @@ public class CampaignStatistics extends TableImpl<CampaignStatisticsRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row6<Integer, String, String, Date, Integer, Integer> fieldsRow() {
+    public Row6<Integer, String, String, Instant, Integer, Integer> fieldsRow() {
         return (Row6) super.fieldsRow();
     }
 }
