@@ -189,4 +189,34 @@ class CampaignStatisticsEndpointTest(
             .body("[2].date", equalTo("2020-01-04T00:00:00Z"))
             .body("[2].impressions", equalTo(90))
     }
+
+    @Test
+    fun `should throw 400 for wrong metric`() {
+        // when
+        val response = given()
+            .get(localUrl("campaign-statistics?metrics=wrong"))
+
+        // then
+        response.then().statusCode(HttpStatus.BAD_REQUEST.value())
+    }
+
+    @Test
+    fun `should throw 400 for wrong group`() {
+        // when
+        val response = given()
+            .get(localUrl("campaign-statistics?groups=wrong"))
+
+        // then
+        response.then().statusCode(HttpStatus.BAD_REQUEST.value())
+    }
+
+    @Test
+    fun `should throw 400 for wrong sort (not set in groups)`() {
+        // when
+        val response = given()
+            .get(localUrl("campaign-statistics?sorts=date"))
+
+        // then
+        response.then().statusCode(HttpStatus.BAD_REQUEST.value())
+    }
 }

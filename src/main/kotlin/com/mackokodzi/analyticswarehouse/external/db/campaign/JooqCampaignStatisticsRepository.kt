@@ -3,6 +3,8 @@ package com.mackokodzi.analyticswarehouse.external.db.campaign
 import com.mackokodzi.analyticswarehouse.domain.campaign.CampaignStatistics
 import com.mackokodzi.analyticswarehouse.domain.campaign.CampaignStatisticsCriteria
 import com.mackokodzi.analyticswarehouse.domain.campaign.CampaignStatisticsRepository
+import com.mackokodzi.analyticswarehouse.domain.campaign.Group
+import com.mackokodzi.analyticswarehouse.domain.campaign.Metric
 import com.mackokodzi.analyticswarehouse.tables.CampaignStatistics.CAMPAIGN_STATISTICS
 import com.mackokodzi.analyticswarehouse.tables.records.CampaignStatisticsRecord
 import org.jooq.Condition
@@ -25,28 +27,28 @@ class JooqCampaignStatisticsRepository(
         val sortFields: MutableList<SortField<*>> = arrayListOf()
         val whereConditions: MutableList<Condition> = arrayListOf()
 
-        if (criteria.groups.contains("datasource")) {
+        if (criteria.groups.contains(Group.DATASOURCE)) {
             val datasource = CAMPAIGN_STATISTICS.DATASOURCE
             selectFields.add(datasource)
             groupByFields.add(datasource)
         }
-        if (criteria.groups.contains("campaign")) {
+        if (criteria.groups.contains(Group.CAMPAIGN)) {
             selectFields.add(CAMPAIGN_STATISTICS.CAMPAIGN_NAME)
             groupByFields.add(CAMPAIGN_STATISTICS.CAMPAIGN_NAME)
         }
-        if (criteria.groups.contains("date")) {
+        if (criteria.groups.contains(Group.DATE)) {
             selectFields.add(CAMPAIGN_STATISTICS.DATE)
             groupByFields.add(CAMPAIGN_STATISTICS.DATE)
         }
 
-        if (criteria.metrics.contains("clicks")) {
+        if (criteria.metrics.contains(Metric.CLICKS)) {
             val clicks = sum(CAMPAIGN_STATISTICS.CLICKS).`as`("clicks")
             selectFields.add(clicks)
         }
-        if (criteria.metrics.contains("impressions")) {
+        if (criteria.metrics.contains(Metric.IMPRESSIONS)) {
             selectFields.add(sum(CAMPAIGN_STATISTICS.IMPRESSIONS).`as`("impressions"))
         }
-        if (criteria.metrics.contains("ctr")) {
+        if (criteria.metrics.contains(Metric.CTR)) {
             selectFields.add(
                 cast(
                     sum(CAMPAIGN_STATISTICS.CLICKS),
