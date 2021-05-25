@@ -11,9 +11,8 @@ import java.io.InputStreamReader
 @Component
 class CampaignStatisticsDataExtractor {
 
-    fun extractCsvData() : List<CampaignStatisticsCsvReportRow> {
-        val csvCampaignStatistics = File(javaClass.classLoader.getResource("csv/campaign_statistics_data.csv")!!.file)
-        return parseCsv(csvCampaignStatistics.readBytes())
+    fun extractCsvData(file: File) : List<CampaignStatisticsCsvReportRow> {
+        return parseCsv(file.readBytes())
     }
 
     private fun parseCsv(byteArray: ByteArray): List<CampaignStatisticsCsvReportRow> =

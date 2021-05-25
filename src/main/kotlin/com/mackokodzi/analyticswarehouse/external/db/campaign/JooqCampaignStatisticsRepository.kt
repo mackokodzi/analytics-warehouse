@@ -21,6 +21,9 @@ import org.springframework.stereotype.Repository
 class JooqCampaignStatisticsRepository(
     private val dsl: DSLContext
 ) : CampaignStatisticsRepository {
+    override fun count(): Int =
+        dsl.fetchCount(CAMPAIGN_STATISTICS)
+
     override fun getStatistics(criteria: CampaignStatisticsCriteria): List<Any> {
         val selectFields: MutableList<Field<*>> = arrayListOf()
         val groupByFields: MutableList<GroupField> = arrayListOf()

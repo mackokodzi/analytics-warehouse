@@ -7,29 +7,36 @@ import com.mackokodzi.analyticswarehouse.domain.campaign.Clicks
 import com.mackokodzi.analyticswarehouse.domain.campaign.Datasource
 import com.mackokodzi.analyticswarehouse.domain.campaign.Impressions
 import com.mackokodzi.analyticswarehouse.domain.campaign.OperationDate
+import kotlinx.coroutines.runBlocking
 import mu.KLogging
 import org.springframework.context.annotation.Profile
-import org.springframework.dao.DuplicateKeyException
+import org.springframework.stereotype.Component
+import java.io.File
 import javax.annotation.PostConstruct
 
 @Profile("!integration")
-//@Component
+@Component
 class CampaignStatisticsInitFeeder(
     private val campaignStatisticsRepository: CampaignStatisticsRepository,
-    private val campaignStatisticsDataExtractor: CampaignStatisticsDataExtractor
+    private val campaignStatisticsDataExtractor: CampaignStatisticsDataExtractor,
+    private val campaignStatisticsDataClient: CampaignStatisticsDataClient
 ) {
+
+   //TODO: add tests
 
     @PostConstruct
     fun feedDataFromCsv() {
-        try {
-            campaignStatisticsDataExtractor.extractCsvData()
+        if (campaignStatisticsRepository.count() == 0) {
+            val file = File.createTempFile("files", "index")
+            runBlocking { campaignStatisticsDataClient.downloadCsvData(file) }
+            campaignStatisticsDataExtractor.extractCsvData(file)
                 .let { it.map { row -> row.toDomain() } }
                 .subList(0, 8000) //TODO: postgre constraints on heroku server
-                .also { logger.info { "Saving ${it.size} entries"} }
+                .also { logger.info { "Saving ${it.size} entries" } }
                 .let { campaignStatisticsRepository.saveAll(it) }
                 .also { logger.info { "Saved entries successfully" } }
-        } catch (e: DuplicateKeyException) {
-            logger.info { "Entries already stored" }
+        } else {
+            logger.info { "Entries already in db" }
         }
     }
 
