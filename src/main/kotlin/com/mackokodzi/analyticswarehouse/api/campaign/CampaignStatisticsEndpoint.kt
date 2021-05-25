@@ -32,7 +32,7 @@ class CampaignStatisticsEndpoint(
         @RequestParam(required = false, defaultValue = "clicks, impressions, ctr") metrics: List<Metric>,
         /**
          * Dimensions to be grouped.
-         * Allowed are: DATASOURCE, CAMPAIGN, DATE.
+         * Allowed are: datasource, campaign, date.
          */
         @RequestParam(required = false, defaultValue = "") groups: List<Group>,
         /**
