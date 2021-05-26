@@ -34,8 +34,8 @@ The API allows to return multiple variants depending on input parameters. None o
 | groups       | ```List<String>``` | empty list |  List of dimensions to be grouped. Allowed values are: datasource, campaign, date |
 | datasources  |    ```List<String>``` | empty list | List of datasources to be filtered |
 | campaigns  |    ```List<String>``` | empty list | List of campaigns to be filtered |
-| dateFrom  |    ```Date``` | null | Date from to be filtered. ISO Date Format {yyyy-MM-dd}  |
-| dateTo  |    ```Date``` | null | "Date to" to be filtered. ISO Date Format {yyyy-MM-dd} |
+| dateFrom  |    ```LocalDate``` | null | Date from to be filtered. ISO Date Format {yyyy-MM-dd}  |
+| dateTo  |    ```LocalDate``` | null | "Date to" to be filtered. ISO Date Format {yyyy-MM-dd} |
 | sorts  |    ```List<String>``` | empty list | Enables sorting fields from metrics and groups therefore given sort field needs to be either in metrics or groups. Sorting may be descending or ascending (default). You may achieve this by adding ```desc``` or ```asc``` after sort field name prefixing it with dot: ```ctr.desc``` or ```clicks.asc```|
 
 ## Sample queries
@@ -104,19 +104,19 @@ Response:
 ```
 [
   {
-    "date": "2020-02-14T01:00:00Z",
+    "date": "2020-02-14",
     "impressions": 23738
   },
   {
-    "date": "2020-02-13T01:00:00Z",
+    "date": "2020-02-13",
     "impressions": 46445
   },
   {
-    "date": "2020-02-12T01:00:00Z",
+    "date": "2020-02-12",
     "impressions": 45910
   },
   {
-    "date": "2020-02-11T01:00:00Z",
+    "date": "2020-02-11",
     "impressions": 51102
   },
   ..
