@@ -3,7 +3,7 @@ package com.mackokodzi.analyticswarehouse.mothers.domain
 import com.mackokodzi.analyticswarehouse.domain.campaign.CampaignStatisticsCriteria
 import com.mackokodzi.analyticswarehouse.domain.campaign.Group
 import com.mackokodzi.analyticswarehouse.domain.campaign.Metric
-import java.util.Date
+import java.time.LocalDate
 
 object CampaignStatisticsCriteriaMother {
     fun build(
@@ -11,8 +11,8 @@ object CampaignStatisticsCriteriaMother {
         groups: List<Group> = emptyList(),
         datasources: List<String> = emptyList(),
         campaigns: List<String> = emptyList(),
-        dateFrom: Date? = null,
-        dateTo: Date? = null,
+        dateFrom: LocalDate? = null,
+        dateTo: LocalDate? = null,
         sorts: List<String> = emptyList()
     ) = CampaignStatisticsCriteria(
         metrics = metrics,

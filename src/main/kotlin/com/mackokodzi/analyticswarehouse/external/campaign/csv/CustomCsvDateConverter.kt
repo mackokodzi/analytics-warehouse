@@ -5,18 +5,16 @@ import com.opencsv.exceptions.CsvConstraintViolationException
 import com.opencsv.exceptions.CsvDataTypeMismatchException
 import java.time.Instant
 import java.time.LocalDate
-import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import kotlin.jvm.Throws
 
 class CustomCsvDateConverter : AbstractBeanField<String, Instant>() {
 
     @Throws(CsvDataTypeMismatchException::class, CsvConstraintViolationException::class)
-    override fun convert(value: String): Instant =
+    override fun convert(value: String): LocalDate =
         try {
             val formatter = DateTimeFormatter.ofPattern("MM/dd/uu")
-            val date = LocalDate.parse(value, formatter)
-            date.atStartOfDay().toInstant(ZoneOffset.UTC)
+            LocalDate.parse(value, formatter)
         } catch (e: RuntimeException) {
             throw CsvDataTypeMismatchException(e.message)
         }

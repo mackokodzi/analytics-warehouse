@@ -3,11 +3,18 @@
  */
 package com.mackokodzi.analyticswarehouse.tables;
 
+
 import com.mackokodzi.analyticswarehouse.Indexes;
 import com.mackokodzi.analyticswarehouse.Keys;
 import com.mackokodzi.analyticswarehouse.Public;
-import com.mackokodzi.analyticswarehouse.config.jooq.InstantConverter;
+import com.mackokodzi.analyticswarehouse.config.jooq.LocalDateConverter;
 import com.mackokodzi.analyticswarehouse.tables.records.CampaignStatisticsRecord;
+
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.processing.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
@@ -24,12 +31,6 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
-
-import java.time.Instant;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.annotation.processing.Generated;
 
 
 /**
@@ -78,7 +79,7 @@ public class CampaignStatistics extends TableImpl<CampaignStatisticsRecord> {
     /**
      * The column <code>public.campaign_statistics.date</code>.
      */
-    public final TableField<CampaignStatisticsRecord, Instant> DATE = createField(DSL.name("date"), SQLDataType.TIMESTAMP(6).nullable(false), this, "", new InstantConverter());
+    public final TableField<CampaignStatisticsRecord, LocalDate> DATE = createField(DSL.name("date"), SQLDataType.DATE.nullable(false), this, "", new LocalDateConverter());
 
     /**
      * The column <code>public.campaign_statistics.clicks</code>.
@@ -179,7 +180,7 @@ public class CampaignStatistics extends TableImpl<CampaignStatisticsRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row6<Integer, String, String, Instant, Integer, Integer> fieldsRow() {
+    public Row6<Integer, String, String, LocalDate, Integer, Integer> fieldsRow() {
         return (Row6) super.fieldsRow();
     }
 }

@@ -8,7 +8,7 @@ import org.hamcrest.Matchers.equalTo
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
-import java.time.Instant
+import java.time.LocalDate
 
 class CampaignStatisticsEndpointTest(
     @Autowired private val jooqCampaignStatisticsRepository: JooqCampaignStatisticsRepository
@@ -37,22 +37,22 @@ class CampaignStatisticsEndpointTest(
         jooqCampaignStatisticsRepository.saveAll(listOf(
             CampaignStatisticsMother.build( //should not be counted
                 datasource = "Google Ads",
-                operationDate = Instant.parse("2020-01-02T00:00:00Z"),
+                operationDate = LocalDate.parse("2020-01-02"),
                 clicks = 10
             ),
             CampaignStatisticsMother.build(
                 datasource = "Google Ads",
-                operationDate = Instant.parse("2020-01-03T00:00:00Z"),
+                operationDate = LocalDate.parse("2020-01-03"),
                 clicks = 20
             ),
             CampaignStatisticsMother.build(
                 datasource = "Google Ads",
-                operationDate = Instant.parse("2020-01-04T00:00:00Z"),
+                operationDate = LocalDate.parse("2020-01-04"),
                 clicks = 35
             ),
             CampaignStatisticsMother.build( //should not be counted
                 datasource = "Twitter Ads",
-                operationDate = Instant.parse("2020-01-04T00:00:00Z"),
+                operationDate = LocalDate.parse("2020-01-04"),
                 clicks = 40
             )
         ))
@@ -78,42 +78,42 @@ class CampaignStatisticsEndpointTest(
             CampaignStatisticsMother.build(
                 datasource = "Google Ads",
                 campaignName = "CampaignGoogle1",
-                operationDate = Instant.parse("2020-01-02T00:00:00Z"),
+                operationDate = LocalDate.parse("2020-01-02"),
                 clicks = 10,
                 impressions = 100
             ),
             CampaignStatisticsMother.build(
                 datasource = "Google Ads",
                 campaignName = "CampaignGoogle1",
-                operationDate = Instant.parse("2020-01-03T00:00:00Z"),
+                operationDate = LocalDate.parse("2020-01-03"),
                 clicks = 20,
                 impressions = 90
             ),
             CampaignStatisticsMother.build(
                 datasource = "Google Ads",
                 campaignName = "CampaignGoogle2",
-                operationDate = Instant.parse("2020-01-03T00:00:00Z"),
+                operationDate = LocalDate.parse("2020-01-03"),
                 clicks = 10,
                 impressions = 100
             ),
             CampaignStatisticsMother.build(
                 datasource = "Google Ads",
                 campaignName = "CampaignGoogle3",
-                operationDate = Instant.parse("2020-01-03T00:00:00Z"),
+                operationDate = LocalDate.parse("2020-01-03"),
                 clicks = 20,
                 impressions = 90
             ),
             CampaignStatisticsMother.build(
                 datasource = "Twitter Ads",
                 campaignName = "CampaignTwitter1",
-                operationDate = Instant.parse("2020-01-04T00:00:00Z"),
+                operationDate = LocalDate.parse("2020-01-04"),
                 clicks = 35,
                 impressions = 80
             ),
             CampaignStatisticsMother.build(
                 datasource = "Twitter Ads",
                 campaignName = "CampaignTwitter1",
-                operationDate = Instant.parse("2020-01-05T00:00:00Z"),
+                operationDate = LocalDate.parse("2020-01-05"),
                 clicks = 40,
                 impressions = 85
             )
@@ -147,28 +147,28 @@ class CampaignStatisticsEndpointTest(
         jooqCampaignStatisticsRepository.saveAll(listOf(
             CampaignStatisticsMother.build(
                 datasource = "Google Ads",
-                operationDate = Instant.parse("2020-01-02T00:00:00Z"),
+                operationDate = LocalDate.parse("2020-01-02"),
                 impressions = 100
             ),
             CampaignStatisticsMother.build(
                 datasource = "Google Ads",
-                operationDate = Instant.parse("2020-01-03T00:00:00Z"),
+                operationDate = LocalDate.parse("2020-01-03"),
                 impressions = 90
             ),
             CampaignStatisticsMother.build(
                 datasource = "Twitter Ads",
-                operationDate = Instant.parse("2020-01-02T00:00:00Z"),
+                operationDate = LocalDate.parse("2020-01-02"),
                 impressions = 100
             ),
             CampaignStatisticsMother.build(
                 datasource = "Twitter Ads",
-                operationDate = Instant.parse("2020-01-03T00:00:00Z"),
+                operationDate = LocalDate.parse("2020-01-03"),
                 clicks = 20,
                 impressions = 90
             ),
             CampaignStatisticsMother.build(
                 datasource = "Facebooks Ads",
-                operationDate = Instant.parse("2020-01-04T00:00:00Z"),
+                operationDate = LocalDate.parse("2020-01-04"),
                 clicks = 20,
                 impressions = 90
             )
@@ -182,11 +182,11 @@ class CampaignStatisticsEndpointTest(
 
         // then
         response.then().statusCode(HttpStatus.OK.value())
-            .body("[0].date", equalTo("2020-01-02T00:00:00Z"))
+            .body("[0].date", equalTo("2020-01-02"))
             .body("[0].impressions", equalTo(200))
-            .body("[1].date", equalTo("2020-01-03T00:00:00Z"))
+            .body("[1].date", equalTo("2020-01-03"))
             .body("[1].impressions", equalTo(180))
-            .body("[2].date", equalTo("2020-01-04T00:00:00Z"))
+            .body("[2].date", equalTo("2020-01-04"))
             .body("[2].impressions", equalTo(90))
     }
 

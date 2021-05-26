@@ -1,6 +1,6 @@
 package com.mackokodzi.analyticswarehouse.domain.campaign
 
-import java.time.Instant
+import java.time.LocalDate
 
 data class CampaignStatistics(
     val datasource: Datasource,
@@ -12,6 +12,6 @@ data class CampaignStatistics(
 
 data class Datasource(val value: String)
 data class CampaignName(val value: String)
-data class OperationDate(val value: Instant)
+data class OperationDate(val value: LocalDate)
 data class Clicks(val value: Int)
 data class Impressions(val value: Int)

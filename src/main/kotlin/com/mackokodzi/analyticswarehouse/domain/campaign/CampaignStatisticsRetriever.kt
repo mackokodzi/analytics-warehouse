@@ -2,7 +2,7 @@ package com.mackokodzi.analyticswarehouse.domain.campaign
 
 import mu.KLogging
 import org.springframework.stereotype.Component
-import java.util.Date
+import java.time.LocalDate
 
 @Component
 class CampaignStatisticsRetriever(
@@ -20,8 +20,8 @@ data class CampaignStatisticsCriteria(
     val groups: List<Group>,
     val datasources: List<String>,
     val campaigns: List<String>,
-    val dateFrom: Date?,
-    val dateTo: Date?,
+    val dateFrom: LocalDate?,
+    val dateTo: LocalDate?,
     val sorts: List<String>
 )
 

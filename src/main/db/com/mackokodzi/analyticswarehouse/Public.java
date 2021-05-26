@@ -3,17 +3,18 @@
  */
 package com.mackokodzi.analyticswarehouse;
 
-import com.mackokodzi.analyticswarehouse.tables.CampaignStatistics;
 
-import org.jooq.Catalog;
-import org.jooq.Sequence;
-import org.jooq.Table;
-import org.jooq.impl.SchemaImpl;
+import com.mackokodzi.analyticswarehouse.tables.CampaignStatistics;
 
 import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.processing.Generated;
+
+import org.jooq.Catalog;
+import org.jooq.Sequence;
+import org.jooq.Table;
+import org.jooq.impl.SchemaImpl;
 
 
 /**

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import java.util.Date
+import java.time.LocalDate
 
 typealias Sort = String
 
@@ -48,13 +48,13 @@ class CampaignStatisticsEndpoint(
          */
         @RequestParam(required = false)
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-        dateFrom: Date?,
+        dateFrom: LocalDate?,
         /**
          * "Date to" to be filtered
          */
         @RequestParam(required = false)
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-        dateTo: Date?,
+        dateTo: LocalDate?,
         /**
          * Fields to be sorted
          */

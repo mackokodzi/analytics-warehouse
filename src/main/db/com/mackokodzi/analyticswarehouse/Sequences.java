@@ -3,11 +3,12 @@
  */
 package com.mackokodzi.analyticswarehouse;
 
+
+import javax.annotation.processing.Generated;
+
 import org.jooq.Sequence;
 import org.jooq.impl.Internal;
 import org.jooq.impl.SQLDataType;
-
-import javax.annotation.processing.Generated;
 
 
 /**

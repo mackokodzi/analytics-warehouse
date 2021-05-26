@@ -1,15 +1,15 @@
 package com.mackokodzi.analyticswarehouse.config.jooq
 
 import org.jooq.Converter
-import java.sql.Timestamp
-import java.time.Instant
+import java.sql.Date
+import java.time.LocalDate
 
-class InstantConverter : Converter<Timestamp, Instant> {
-    override fun from(databaseObject: Timestamp?) = databaseObject?.toInstant()
+class LocalDateConverter : Converter<Date, LocalDate> {
+    override fun from(databaseObject: Date?) = databaseObject?.toLocalDate()
 
-    override fun to(userObject: Instant?) = userObject?.let { Timestamp.from(it) }
+    override fun to(userObject: LocalDate?) = userObject?.let { Date.valueOf(it) }
 
-    override fun fromType() = Timestamp::class.java
+    override fun fromType() = Date::class.java
 
-    override fun toType() = Instant::class.java
+    override fun toType() = LocalDate::class.java
 }

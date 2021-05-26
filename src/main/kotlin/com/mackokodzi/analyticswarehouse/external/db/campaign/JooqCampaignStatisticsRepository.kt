@@ -61,10 +61,10 @@ class JooqCampaignStatisticsRepository(
         }
 
         if (criteria.dateFrom != null) {
-            whereConditions.add(CAMPAIGN_STATISTICS.DATE.greaterOrEqual(criteria.dateFrom.toInstant()))
+            whereConditions.add(CAMPAIGN_STATISTICS.DATE.greaterOrEqual(criteria.dateFrom))
         }
         if (criteria.dateTo != null) {
-            whereConditions.add(CAMPAIGN_STATISTICS.DATE.lessOrEqual(criteria.dateTo.toInstant()))
+            whereConditions.add(CAMPAIGN_STATISTICS.DATE.lessOrEqual(criteria.dateTo))
         }
         if (!criteria.datasources.isNullOrEmpty()) {
             criteria.datasources.forEach {

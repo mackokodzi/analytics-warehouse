@@ -3,15 +3,16 @@
  */
 package com.mackokodzi.analyticswarehouse;
 
+
 import com.mackokodzi.analyticswarehouse.tables.CampaignStatistics;
 import com.mackokodzi.analyticswarehouse.tables.records.CampaignStatisticsRecord;
+
+import javax.annotation.processing.Generated;
 
 import org.jooq.TableField;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.Internal;
-
-import javax.annotation.processing.Generated;
 
 
 /**

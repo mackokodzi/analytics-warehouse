@@ -101,8 +101,8 @@ jooq {
 						inputSchema = "public"
 						forcedTypes.addAll(arrayOf(
 							ForcedType()
-								.withUserType("java.time.Instant")
-								.withConverter("com.mackokodzi.analyticswarehouse.config.jooq.InstantConverter")
+								.withUserType("java.time.LocalDate")
+								.withConverter("com.mackokodzi.analyticswarehouse.config.jooq.LocalDateConverter")
 								.withIncludeExpression("DATE")
 								.withIncludeTypes(".*")
 						).toList())

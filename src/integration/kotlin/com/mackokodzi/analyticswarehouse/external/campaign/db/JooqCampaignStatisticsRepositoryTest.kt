@@ -11,7 +11,7 @@ import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.dao.DataIntegrityViolationException
 import java.math.BigDecimal
-import java.time.Instant
+import java.time.LocalDate
 
 class JooqCampaignStatisticsRepositoryTest(
     @Autowired private val jooqCampaignStatisticsRepository: JooqCampaignStatisticsRepository,
@@ -111,12 +111,12 @@ class JooqCampaignStatisticsRepositoryTest(
             CampaignStatisticsMother.build(
                 datasource = "Google Ads",
                 campaignName = "Google Campaign",
-                operationDate = Instant.parse("2020-01-01T00:00:00Z")
+                operationDate = LocalDate.parse("2020-01-01")
             ),
             CampaignStatisticsMother.build(
                 datasource = "Google Ads",
                 campaignName = "Google Campaign",
-                operationDate = Instant.parse("2020-01-01T00:00:00Z")
+                operationDate = LocalDate.parse("2020-01-01")
             )
         )
 

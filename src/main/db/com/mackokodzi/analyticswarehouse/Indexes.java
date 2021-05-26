@@ -3,14 +3,15 @@
  */
 package com.mackokodzi.analyticswarehouse;
 
+
 import com.mackokodzi.analyticswarehouse.tables.CampaignStatistics;
+
+import javax.annotation.processing.Generated;
 
 import org.jooq.Index;
 import org.jooq.OrderField;
 import org.jooq.impl.DSL;
 import org.jooq.impl.Internal;
-
-import javax.annotation.processing.Generated;
 
 
 /**
