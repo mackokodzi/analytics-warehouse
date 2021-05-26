@@ -5,7 +5,7 @@ CREATE TABLE campaign_statistics
     id            SERIAL PRIMARY KEY,
     datasource    VARCHAR   NOT NULL,
     campaign_name VARCHAR   NOT NULL,
-    date          TIMESTAMP NOT NULL,
+    date          DATE      NOT NULL,
     clicks        INT       NOT NULL,
     impressions   INT       NOT NULL
 );
